@@ -93,7 +93,7 @@ public class EmployeeDatabaseInterface extends AppCompatActivity {
                 employeeDatabaseHelper.insertElement(db, contentVal);
 
                 txtvwResult.setText("Information Has Been Successfully Added");
-
+            db.close();
             }
         } catch (SQLiteException e) {
             //display that the database was not found

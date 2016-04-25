@@ -205,6 +205,8 @@ public class SearchDatabase extends AppCompatActivity {
                     }
                 }
             }
+            searchCursor.close();
+            db.close();
         } catch (SQLiteException e) {
             txtvwResult.setText("Database not Found");
         }
@@ -229,7 +231,7 @@ public class SearchDatabase extends AppCompatActivity {
         String[] elementsToDelete;
         EmployeeDatabaseHelper employeeDatabaseHelper = new EmployeeDatabaseHelper(this, null, null, 0);
         SQLiteDatabase db;
-        int numRowsDeleted;
+        int numRowsDeleted = 0;
 
         if (edtxtName.getText().length() != 0) {
 
@@ -329,8 +331,9 @@ public class SearchDatabase extends AppCompatActivity {
         try {
             numRowsDeleted = employeeDatabaseHelper.deleteElement(db, whereToDelete, elementsToDelete);
 
+            db.close();
         } catch (SQLiteException e) {
-
+            txtvwResult.setText(numRowsDeleted + " row(s) have been deleted");
         }
     }
 
