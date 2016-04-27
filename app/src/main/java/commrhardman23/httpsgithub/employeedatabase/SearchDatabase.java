@@ -202,6 +202,7 @@ public class SearchDatabase extends AppCompatActivity {
                                         searchCursor.getDouble(3)));
 
                         //How do we get the next row in the Cursor? Put that here...
+                        searchCursor.moveToNext();
                     }
                 }
             }
@@ -327,13 +328,14 @@ public class SearchDatabase extends AppCompatActivity {
          *    the String where and String[] whereArgs parameters, respectively
          * 3. Display the number of rows deleted
          */
-        db = employeeDatabaseHelper.getWritableDatabase();
         try {
+            db = employeeDatabaseHelper.getWritableDatabase();
             numRowsDeleted = employeeDatabaseHelper.deleteElement(db, whereToDelete, elementsToDelete);
+            txtvwResult.setText(numRowsDeleted + " row(s) have been deleted");
 
             db.close();
         } catch (SQLiteException e) {
-            txtvwResult.setText(numRowsDeleted + " row(s) have been deleted");
+            txtvwResult.setText("Nothing was deleted...");
         }
     }
 
